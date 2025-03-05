@@ -1,19 +1,21 @@
 # 第一阶段：构建依赖
 FROM python:3.11-slim as builder
 
-# 设置清华源
-RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware" > /etc/apt/sources.list && \
-  echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
-  echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list
+
+RUN echo "deb https://mirrors.cloud.tencent.com/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
+  echo "deb https://mirrors.cloud.tencent.com/debian/ bookworm-updates main contrib non-free" >> /etc/apt/sources.list && \
+  echo "deb https://mirrors.cloud.tencent.com/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
 
 # 设置pip清华源
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
+RUN apt-get update
 # 安装系统依赖
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
   gcc \
   default-libmysqlclient-dev \
   pkg-config \
+  libmariadb-dev \
   && rm -rf /var/lib/apt/lists/*
 
 COPY windbird/requirements.txt .
@@ -35,3 +37,4 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "windbird.wsgi"] 
+
