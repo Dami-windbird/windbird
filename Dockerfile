@@ -17,6 +17,7 @@ RUN apt-get install -y --no-install-recommends \
   default-libmysqlclient-dev \
   pkg-config \
   libmariadb-dev \
+  python3-dev build-essential \
   && rm -rf /var/lib/apt/lists/*
 
 COPY windbird/requirements.txt .
