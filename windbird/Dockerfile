@@ -28,13 +28,11 @@ WORKDIR /code
 COPY --from=builder /root/.local /root/.local
 
 # 复制项目文件到工作目录
-COPY ../ /code/
-
-
+COPY ./ /code/
+COPY ../manage.py /code/
 
 ENV PATH=/root/.local/bin:$PATH
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "windbird.wsgi"] 
