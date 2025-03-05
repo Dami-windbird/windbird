@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
   pkg-config \
   && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
+COPY windbird/requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt
 
 # 第二阶段：生产镜像
