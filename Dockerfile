@@ -9,8 +9,10 @@ RUN echo "deb https://mirrors.cloud.tencent.com/debian/ bookworm main contrib no
 # 设置pip清华源
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
+RUN apt-get update
 # 安装系统依赖
-RUN apt-get update && apt-get install -y --no-install-recommends \
+
+RUN apt-get install -y --no-install-recommends \
   gcc \
   default-libmysqlclient-dev \
   pkg-config \
@@ -36,3 +38,4 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "windbird.wsgi"] 
+
