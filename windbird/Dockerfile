@@ -1,5 +1,5 @@
 # 基础镜像
-FROM python:3.11.10-slim-bookworm
+FROM python:3.11-alpine
 
 # 设置环境变量
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -9,10 +9,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # 安装系统依赖
-RUN apt-get update && apt-get install -y \
-  gcc \
-  libmariadb-dev-compat \
-  && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache gcc musl-dev mariadb-connector-c-dev
 
 # 安装Python依赖
 COPY requirements.txt .
