@@ -1,9 +1,9 @@
 # 使用官方镜像并配置国内源
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
-# 设置阿里云镜像源
-RUN echo -e "https://mirrors.aliyun.com/alpine/v3.19/main\n\
-  https://mirrors.aliyun.com/alpine/v3.19/community" > /etc/apk/repositories
+# 设置清华源
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+  sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
 
 # 设置pip清华源
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
