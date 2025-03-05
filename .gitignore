@@ -169,3 +169,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Added from the code block
+*.local.py
+
+# New from the code block
+/windbird/local_settings.py
