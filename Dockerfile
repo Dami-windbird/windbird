@@ -29,7 +29,6 @@ COPY --from=builder /root/.local /root/.local
 
 # 复制项目文件到工作目录
 COPY . /code/
-COPY ../manage.py /code/
 
 ENV PATH=/root/.local/bin:$PATH
 ENV PYTHONDONTWRITEBYTECODE 1
