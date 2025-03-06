@@ -55,14 +55,11 @@ class IPLocationAPI(APIView):
     - ip (可选): 要查询的IP地址，默认使用客户端IP
     
     示例：
-    GET /api/tool/ip-location/?ip=114.247.50.2
+    GET /api/tool/ip/
     """
     def get(self, request):
-        ip = request.query_params.get('ip')
-        
-        if not ip:
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
-            ip = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
+        ip = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
         
         try:
             validate_ipv4(ip)  # 使用通用验证器
