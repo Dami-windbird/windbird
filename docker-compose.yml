@@ -1,9 +1,12 @@
+version: '3.8'
 services:
-  web:
-    build: .
-    env_file: .env.prod
+  app:
+    image: windbird:latest
     ports:
       - "8000:8000"
+    volumes:
+      - /windbird/data:/app/data
+    restart: always
     depends_on:
       db:
         condition: service_healthy
@@ -11,6 +14,8 @@ services:
   db:
     image: mysql:8.0
     env_file: .env.prod
+    volumes:
+      - /windbird/mysql_data:/var/lib/mysql # 新增数据卷挂载
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 5s

@@ -1,29 +1,22 @@
 # 第一阶段：构建依赖
-FROM python:3.11-slim as builder
-
-RUN echo "deb https://mirrors.cloud.tencent.com/debian/ bookworm main contrib non-free" > /etc/apt/sources.list && \
-  echo "deb https://mirrors.cloud.tencent.com/debian/ bookworm-updates main contrib non-free" >> /etc/apt/sources.list && \
-  echo "deb https://mirrors.cloud.tencent.com/debian-security bookworm-security main contrib non-free" >> /etc/apt/sources.list
-
-# 设置pip清华源
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+FROM python:3.12-slim as builder
 
 RUN apt-get update
 # 安装系统依赖
 RUN apt-get install -y --no-install-recommends \
-  gcc \
-  default-libmysqlclient-dev \
-  pkg-config \
-  libmariadb-dev \
-  libmariadb3 \
-  python3-dev build-essential \
-  && rm -rf /var/lib/apt/lists/*
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    libmariadb-dev \
+    libmariadb3 \
+    python3-dev build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY windbird/requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt
 
 # 第二阶段：生产镜像
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 WORKDIR /code
 
