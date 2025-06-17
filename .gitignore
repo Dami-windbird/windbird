@@ -60,7 +60,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-
+*.dev_db.sqlite3
 # Flask stuff:
 instance/
 .webassets-cache
@@ -176,3 +176,4 @@ cython_debug/
 
 # New from the code block
 /windbird/local_settings.py
+windbird.tar
