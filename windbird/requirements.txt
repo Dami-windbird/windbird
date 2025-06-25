@@ -11,3 +11,4 @@ packaging==24.2
 requests==2.32.3
 sqlparse==0.5.3
 urllib3==2.3.0
+cos-python-sdk-v5==1.9.37

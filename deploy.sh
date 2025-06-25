@@ -10,7 +10,7 @@ echo
 
 echo "[INFO] 正在同步部署文件...${DEPLOY_DIR}"
 sshpass -p "${PASS}" rsync -azv \
-  windbird.tar \
+  /tmp/docker_file/windbird.tar \
   docker-compose.yml \
   .env.prod \
   ${SERVER}:${DEPLOY_DIR}

@@ -3,4 +3,4 @@
 docker build -t windbird:latest .
 
 # 打包镜像
-docker save -o windbird.tar windbird:latest
+docker save -o /tmp/docker_file/windbird.tar windbird:latest

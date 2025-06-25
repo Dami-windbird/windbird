@@ -1,7 +1,5 @@
-from django.urls import path
-from .views import WeatherAPI, IPLocationAPI
+from django.urls import path, include
 
 urlpatterns = [
-    path('weather', WeatherAPI.as_view()),
-    path('ip', IPLocationAPI.as_view()),
+    path('information/', include('tool.information.urls')),
 ] 

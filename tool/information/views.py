@@ -1,13 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 import requests
-import random
-from tool import serializers
-from tool.serializers import PoemSerializer, IPSerializer, WeatherSerializer
-from django.conf import settings  # 添加在文件顶部
+from tool.information import serializers
+from tool.information.serializers import IPSerializer, WeatherSerializer
+from django.conf import settings
 import json
-import re
 from windbird.utils.validators import validate_ipv4
 from django.core.validators import EMPTY_VALUES
 
@@ -85,4 +82,4 @@ class IPLocationAPI(APIView):
         except requests.exceptions.RequestException as e:
             return Response({"error": f"API请求失败: {str(e)}"}, status=503)
         except json.JSONDecodeError:
-            return Response({"error": "无效的API响应"}, status=500) 
+            return Response({"error": "无效的API响应"}, status=500)
